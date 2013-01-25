@@ -1,0 +1,24 @@
+name: ChunkClaim
+main: naterich2.ChunkClaim.ChunkClaim
+version: 1
+commands:
+  claim:
+    description: This command claims the chunk the player is standing on
+    usage: /claim
+    permission: ChunkClaim.claim
+  aclaim: 
+    description: This command claims the chunk an admin is standing on for admin purposes only
+    usage: /aclaim
+    permission: ChunkClaim.aclaim
+permissions:
+  ChunkClaim.*:
+    description: Gives access to all claim and aclaim commands
+    children:
+      ChunkClaim.claim: true
+      ChunkClaim.aclaim: true
+  ChunkClaim.claim:
+    description: Gives access to claim command
+    default: true
+  ChunkClaim.aclaim:
+    description: Gives access to aclaim command
+    default: op        
