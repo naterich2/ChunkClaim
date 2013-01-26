@@ -14,26 +14,29 @@ public class Cmd_Executor implements CommandExecutor {
 			Player player = (Player) s;
 			
 			if(cmd.getName().equalsIgnoreCase("claim")){
-				if(args.length > 0)
-					s.sendMessage("Usage: /claim");
-
-				Location loc =  player.getLocation();
-				plugin.claim(player,loc);
-				s.sendMessage("You have claimed this block");
-				return true;
+				if(player.hasPermission("ChunkClaim.claim")){
+					if(args.length > 0)
+						s.sendMessage("Usage: /claim");
+	
+					Location loc =  player.getLocation();
+					plugin.claim(player,loc.getChunk());
+					s.sendMessage("You have claimed this block");
+					return true;
+				}
+				else
+					s.sendMessage("You dont have permission to do this");
 			}
 			else if(cmd.getName().equalsIgnoreCase("aclaim")){
 				if(player.hasPermission("ChunkClaim.aclaim")){
 					if(args.length > 0)
 						s.sendMessage("Usage: /claim");
 					Location loc  = player.getLocation();
-					plugin.claim(player, loc);
+					plugin.claim(player, loc.getChunk());
 					s.sendMessage("You have claimed this block as an admin");
 					return true;
 				}
-				else{
+				else
 					s.sendMessage("You dont have permission to do this");
-				}
 			}
 			else if(cmd.getName().equalsIgnoreCase("strike")){
 				if(args.length == 0){
