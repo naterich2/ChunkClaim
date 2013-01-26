@@ -10,15 +10,23 @@ commands:
     description: This command claims the chunk an admin is standing on for admin purposes only
     usage: /aclaim
     permission: ChunkClaim.aclaim
+  strike:
+  	description: This command strikes a player
+  	usage: /strike [player]
+  	permission: ChunkClaim.strike  
 permissions:
   ChunkClaim.*:
     description: Gives access to all claim and aclaim commands
     children:
       ChunkClaim.claim: true
       ChunkClaim.aclaim: true
+      ChunkClaim.strike: true
   ChunkClaim.claim:
     description: Gives access to claim command
     default: true
   ChunkClaim.aclaim:
     description: Gives access to aclaim command
-    default: op        
+    default: op
+  ChunkClaim.strike:
+    description: Gives access to strike command
+    default: op            
