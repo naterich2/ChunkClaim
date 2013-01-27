@@ -8,15 +8,15 @@ commands:
     permission: ChunkClaim.claim
   abandon: 
     description: This command drops the chunk that the player has claimed
-    usage: abondon
+    usage: abandon
     permission: ChunkClaim.abandon
   strike:
-  	description: This command strikes a player
-  	usage: strike player
-  	permission: ChunkClaim.strike  
+    description: This command strikes a player
+    usage: strike player
+    permission: ChunkClaim.strike  
 permissions:
   ChunkClaim.*:
-    description: Gives access to all claim and aclaim commands
+    description: Gives access to all commands
     children:
       ChunkClaim.claim: true
       ChunkClaim.aclaim: true
