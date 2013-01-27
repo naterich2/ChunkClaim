@@ -4,15 +4,15 @@ version: 1
 commands:
   claim:
     description: This command claims the chunk the player is standing on
-    usage: /claim
+    usage: claim
     permission: ChunkClaim.claim
   abandon: 
     description: This command drops the chunk that the player has claimed
-    usage: /abondon
+    usage: abondon
     permission: ChunkClaim.abandon
   strike:
   	description: This command strikes a player
-  	usage: /strike [player]
+  	usage: strike player
   	permission: ChunkClaim.strike  
 permissions:
   ChunkClaim.*:
