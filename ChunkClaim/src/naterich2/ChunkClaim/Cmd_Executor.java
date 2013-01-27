@@ -1,6 +1,8 @@
 package naterich2.ChunkClaim;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -17,25 +19,34 @@ public class Cmd_Executor implements CommandExecutor {
 				if(player.hasPermission("ChunkClaim.claim")){
 					if(args.length > 0)
 						s.sendMessage("Usage: /claim");
-	
-					Location loc =  player.getLocation();
-					plugin.claim(player,loc.getChunk());
-					s.sendMessage("You have claimed this block");
+					Chunk c =  player.getLocation().getChunk();
+					if(plugin.getOwner(c) != null){
+						s.sendMessage(ChatColor.RED+"This block has arleady been claimed");
+					} else {
+						plugin.claim(c, player);
+						s.sendMessage(ChatColor.BLUE+"You have claimed the chunk at X: "+c.getX()+"  and Z: "+c.getZ());
+					}
 					return true;
 				}
 				else
 					s.sendMessage("You dont have permission to do this");
 			}
-			else if(cmd.getName().equalsIgnoreCase("aclaim")){
-				if(player.hasPermission("ChunkClaim.aclaim")){
+			else if(cmd.getName().equalsIgnoreCase("abandon")){
+				if(player.hasPermission("ChunkClaim.abandon")){
 					if(args.length > 0)
 						s.sendMessage("Usage: /claim");
-					Location loc  = player.getLocation();
-					plugin.claim(player, loc.getChunk());
-					s.sendMessage("You have claimed this block as an admin");
+					Chunk c  = player.getLocation().getChunk();
+					if(plugin.getOwner(c) != null){
+						if(plugin.getOwner(c).equalsIgnoreCase(player.getName())){
+							plugin.abandon(c);
+							s.sendMessage(ChatColor.BLUE+ "You have abandoned the chunk at X: "+c.getX()+"  and Z: "+c.getZ());
+						}
+						else
+							s.sendMessage(ChatColor.RED+"You do not own this block!");
+					} else
+						s.sendMessage(ChatColor.RED+"The block at X: "+c.getX()+"  and Z: "+c.getZ()+"  Has not been claimed yet");
 					return true;
-				}
-				else
+				} else
 					s.sendMessage("You dont have permission to do this");
 			}
 			else if(cmd.getName().equalsIgnoreCase("strike")){

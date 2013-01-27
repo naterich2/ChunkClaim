@@ -3,6 +3,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 public class bListener implements Listener {
 	
@@ -13,15 +14,21 @@ public class bListener implements Listener {
 	}
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent evt){
-		if(evt.getPlayer().hasPermission("ChunkCLaim.aclaim")){
-			evt.getPlayer().sendMessage("This chunk is owned by a player, are you sure you want to break it?");
-		}
-		else if(!(evt.getPlayer().hasPermission("ChunkClaim.aclaim")) && plugin.isOwned(evt.getPlayer(), evt.getBlock().getChunk())== true){
-			
+		if(plugin.getOwner(evt.getBlock().getChunk()).equalsIgnoreCase(evt.getPlayer().getName()) || plugin.getOwner(evt.getBlock().getChunk()) == null){
+			return;
+		} else {
+			evt.setCancelled(true);
 			evt.getPlayer().sendMessage(ChatColor.RED+"This chunk is owned by another player, you cant break it!");
 		}
-		else if()
-				
+	}
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent evt){
+		if(plugin.getOwner(evt.getBlock().getChunk()).equalsIgnoreCase(evt.getPlayer().getName()) || plugin.getOwner(evt.getBlock().getChunk()) == null){
+			return;
+		} else {
+			evt.setCancelled(true);
+			evt.getPlayer().sendMessage(ChatColor.RED+"This chunk is owned by another player, you cant place a block here!");
+		}
 	}
 
 }
